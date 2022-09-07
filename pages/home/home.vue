@@ -34,13 +34,15 @@
         <view class="floor-img-box">
           <!-- 左侧大图片的盒子 -->
           <view class="left-img-box">
-            <image :style="{width:item.product_list[0].image_width+'rpx'}" class="left-img"
+            <image @click="goGoodsList(item.product_list[0].navigator_url)"
+              :style="{width:item.product_list[0].image_width+'rpx'}" class="left-img"
               :src="item.product_list[0].image_src"></image>
           </view>
           <!-- 右侧 4 个小图片的盒子 -->
           <view class="right-img-box">
             <view v-for="(item2,i) in item.product_list" v-if="i !== 0" :key="i" class="right-img-item">
-              <image mode="widthFix" :style="{width:item2.image_width+'rpx'}" :src="item2.image_src"></image>
+              <image @click="goGoodsList(item2.navigator_url)" mode="widthFix" :style="{width:item2.image_width+'rpx'}"
+                :src="item2.image_src"></image>
             </view>
           </view>
         </view>
@@ -82,6 +84,12 @@
       goGoodsDetail(id) {
         uni.navigateTo({
           url: '/subpkg/goods_detail/goods_detail?goods_id=' + id
+        })
+      },
+      // 点击进入商品列表
+      goGoodsList(url) {
+        uni.navigateTo({
+          url: '/subpkg/goods_list/goods_list?' + url.split('?')[1]
         })
       },
       clickNav(item) {
